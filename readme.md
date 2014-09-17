@@ -27,3 +27,9 @@ If this is too hard of a constraint, here are some other possible solutions:
 Test Results
 ------------
 {{d['runtests.py|py']}}
+
+dexy notes
+----------
+ - Markdown filter does not work without jinja in-between filename and filter
+ - Dexy files are executed in copied directory, not working directory. Makes
+   extracting test results a bit of a pain.
