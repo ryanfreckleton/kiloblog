@@ -23,3 +23,7 @@ If this is too hard of a constraint, here are some other possible solutions:
  - Each file is 1024 or less, minimize the number of files
  - 1024 compressed
  - 1024 python only
+
+Test Results
+------------
+{{d['runtests.py|py']}}
