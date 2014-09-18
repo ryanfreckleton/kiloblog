@@ -1,6 +1,6 @@
 KiloBlog
 ========
-A blog engine written in 1024 bytes (or less).
+A blog engine written in 1024 bytes (or less). Currently at TBD/1024
 
 Constraints
 -----------
@@ -23,6 +23,16 @@ If this is too hard of a constraint, here are some other possible solutions:
  - Each file is 1024 or less, minimize the number of files
  - 1024 compressed
  - 1024 python only
+
+Story Map
+---------
+ - User Registration
+ - User Login
+ - Make a Post
+ - View Posts
+ - Edit Post
+ - Delete Post
+ - Add Sequel
 
 Test Results
 ------------
