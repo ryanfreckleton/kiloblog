@@ -1,4 +1,0 @@
-kiloblog.py
-spec_kiloblog.py
-runtests.py|py
-readme.md|jinja|markdown

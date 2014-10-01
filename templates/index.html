@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+  </head>
+  <body>
+      <ul>
+      {% for post in listing %}
+      <li><a href="{{ url_for('show', post_id=post.id) }}">{{ post.title }}</a></li>
+      {% endfor %}
+      </ul>
+      <form method="POST" action="/">
+          {{ form.hidden_tag() }}
+          {{ form.title.label }} {{ form.title }}
+          {{ form.content.label }} {{ form.content }}
+          <input type="submit" value="post">
+      </form>
+  </body>
+</html>

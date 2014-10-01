@@ -1,6 +1,17 @@
 KiloBlog
 ========
-A blog engine written in 1024 bytes (or less). Currently at TBD/1024
+A blog engine written in 1024 bytes of minified, gzipped code. Currently at...
+
+{{ d['sizes.sh|shint']|indent(indentfirst=true) }}
+
+Tasks
+-----
+ - Better testing tools
+ - Metrics integrated into this document
+ - PDF output of this document
+ - Decision on metrics -- gzip, include HTML/external files?
+   - Perhaps just count file and each file is under 1 KB in size will be sufficient
+ - External configuration (external configuraiton definitely does not count against line limit)
 
 Constraints
 -----------
@@ -16,6 +27,7 @@ Feature Ideas
  - Sequels/threads (Ficlet!)
  - Tagging
  - Mozilla Persona
+ - Sandboy?
 
 Outs
 ----
@@ -28,18 +40,15 @@ Story Map
 ---------
  - User Registration
  - User Login
- - Make a Post
- - View Posts
- - Edit Post
+ - [DONE] <s>Make a Post</s>
+ - [DONE] <s>View Posts</s>
+ - [DONE] <s>Edit Post</s>
  - Delete Post
  - Add Sequel
-
-Test Results
-------------
-{{d['runtests.py|py']}}
 
 dexy notes
 ----------
  - Markdown filter does not work without jinja in-between filename and filter
  - Dexy files are executed in copied directory, not working directory. Makes
-   extracting test results a bit of a pain.
+   extracting test results a bit of a pain. -- This can be changed with a dexy
+   setting.

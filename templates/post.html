@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ post.title }}</title>
+  </head>
+  <body>
+      <h1>{{ post.title }}</h1>
+      <h2><a href="{{ url_for('edit', post_id=post_id) }}">edit</a></h2>
+      <div id="content">
+          {{ post.content }}
+      </div>
+  </body>
+</html>

@@ -55,3 +55,4 @@ target/
 
 .dexy/
 output/
+kiloblog.db

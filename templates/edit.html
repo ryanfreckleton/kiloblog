@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+  </head>
+  <body>
+      <form method="POST" action="{{ url_for('edit', post_id=post_id) }}">
+          {{ form.hidden_tag() }}
+          {{ form.title.label }} {{ form.title }}
+          {{ form.content.label }} {{ form.content }}
+          <input type="submit" value="post">
+      </form>
+  </body>
+</html>
