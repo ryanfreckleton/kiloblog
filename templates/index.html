@@ -3,14 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>title</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/min/1.5/min.min.css">
   </head>
   <body>
-      <ul>
+      <ul id="posts">
       {% for post in listing %}
       <li><a href="{{ url_for('show', post_id=post.id) }}">{{ post.title }}</a></li>
       {% endfor %}
       </ul>
-      <form method="POST" action="/">
+      <form id="new-post" method="POST" action="/">
           {{ form.hidden_tag() }}
           {{ form.title.label }} {{ form.title }}
           {{ form.content.label }} {{ form.content }}
