@@ -2,3 +2,4 @@ README.md|jinja|markdown:
  - sizes.sh|shint:
    - kiloblog.py
    - minipy.py
+   - templates/*.html

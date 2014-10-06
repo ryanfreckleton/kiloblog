@@ -1,6 +1,18 @@
 KiloBlog
 ========
-A blog engine written in 1024 bytes of minified, gzipped code. Currently at...
+A blog engine written in 1024 bytes of minified, gzipped python code. All other
+content needs to be one kilobyte or less per file.
+
+So this basically means:
+ - Python code (not including configurat) 1024 minified + gzipped
+ - each html file 1024 minifed + gzipped
+ - site CSS 1024 minified + gzipped
+ - js library 1024 minified + gzipped
+ - site js 1024 minified + gzipped
+ - CSS framework 1024 minified + gzipped
+
+Anything not in the list (e.g. tests, documentation, initial data) do not have
+that limit.
 
 {{ d['sizes.sh|shint']|indent(indentfirst=true) }}
 
@@ -9,8 +21,6 @@ Tasks
  - Better testing tools
  - Metrics integrated into this document
  - PDF output of this document
- - Decision on metrics -- gzip, include HTML/external files?
-   - Perhaps just count file and each file is under 1 KB in size will be sufficient
  - External configuration (external configuraiton definitely does not count against line limit)
 
 Constraints
@@ -28,13 +38,6 @@ Feature Ideas
  - Tagging
  - Mozilla Persona
  - Sandboy?
-
-Outs
-----
-If this is too hard of a constraint, here are some other possible solutions:
- - Each file is 1024 or less, minimize the number of files
- - 1024 compressed
- - 1024 python only
 
 Story Map
 ---------
