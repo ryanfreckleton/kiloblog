@@ -8,7 +8,7 @@
   <body>
       <form method="POST" action="{{ url_for('edit', post_id=post_id) }}">
           {{ form.hidden_tag() }}
-          {{ form.title.label }} {{ form.title }}
+          {{ form.title.label }} {{ form.title }}</p>
           {{ form.content.label }} {{ form.content }}
           <input type="submit" value="post">
       </form>

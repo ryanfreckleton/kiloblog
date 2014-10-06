@@ -2,10 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>title</title>
+    <title>Millific</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/min/1.5/min.min.css">
+    <style>
+        #posts {
+            text-align: left;
+        }
+    </style>
   </head>
   <body>
+      <h1>Millific Prototype</h1>
       <ul id="posts">
       {% for post in listing %}
       <li><a href="{{ url_for('show', post_id=post.id) }}">{{ post.title }}</a></li>
@@ -13,7 +19,7 @@
       </ul>
       <form id="new-post" method="POST" action="/">
           {{ form.hidden_tag() }}
-          {{ form.title.label }} {{ form.title }}
+          {{ form.title.label }} {{ form.title }}<p>
           {{ form.content.label }} {{ form.content }}
           <input type="submit" value="post">
       </form>
