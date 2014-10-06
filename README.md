@@ -36,6 +36,7 @@ Feature Ideas
  - Character limit on posts of 1024
  - Sequels/threads (Ficlet!)
  - Tagging
+ - Rating
  - Mozilla Persona
  - Sandboy?
 
