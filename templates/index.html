@@ -6,7 +6,21 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/min/1.5/min.min.css">
     <style>
         #posts {
-            text-align: left;
+            text-align : left;
+            padding-left : 5em;
+        }
+        #new-post {
+            display : table;
+            padding-left : 5em;
+        }
+        #new-post p {
+            display : table-row;
+        }
+        #new-post label {
+            display : table-cell;
+        }
+        #new-post input {
+            display : table-cell;
         }
     </style>
   </head>
@@ -19,9 +33,15 @@
       </ul>
       <form id="new-post" method="POST" action="/">
           {{ form.hidden_tag() }}
-          {{ form.title.label }} {{ form.title }}<p>
-          {{ form.content.label }} {{ form.content }}
-          <input type="submit" value="post">
+          <p>
+              {{ form.title.label }} {{ form.title }}
+          </p>
+          <p>
+              {{ form.content.label }} {{ form.content }}
+          </p>
+          <p>
+              <input type="submit" value="post">
+          </p>
       </form>
   </body>
 </html>
