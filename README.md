@@ -4,6 +4,7 @@ A blog engine written in 1024 bytes of minified, gzipped python code. All other
 content needs to be one kilobyte or less per file.
 
 So this basically means:
+
  - Python code (not including configurat) 1024 minified + gzipped
  - each html file 1024 minifed + gzipped
  - site CSS 1024 minified + gzipped
