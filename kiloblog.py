@@ -11,12 +11,18 @@ app.config.from_object('default_settings')
 db = SQLAlchemy(app)
 
 class Post(db.Model):
+    """"
+    Adjacency List Pattern: http://docs.sqlalchemy.org/en/rel_0_9/orm/relationships.html#adjacency-list-relationships
+    """
     id = db.Column(db.Integer, primary_key=True)
+    prequel_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     title = db.Column(db.String(80))
     content = db.Column(db.String(1024), unique=True)
+    sequels = db.relationship('Post', backref=db.backref('prequel', remote_side=[id]))
 
 PostForm = model_form(Post, base_class=Form,
-                      field_args={'content':{'widget':TextArea()}})
+                      field_args={'content':{'widget':TextArea()}},
+                      only=['title', 'content'])
 
 @app.route('/', methods=('GET', 'POST'))
 def index():

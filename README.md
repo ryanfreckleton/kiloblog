@@ -35,11 +35,15 @@ Constraints
 Feature Ideas
 -------------
  - Character limit on posts of 1024
- - Sequels/threads (Ficlet!)
  - Tagging
  - Rating
  - Mozilla Persona
  - Sandboy?
+### Sequels/threads (Ficlet!) ###
+ - Input: Users select millific to sequel or prequel by clicking "Make sequel"
+   or "Make prequel" link, new form opens up that has a prepopulated hidden
+   field or maybe a sub URL for that specific story.
+ - Prequels and sequels are listed on the page for the story.
 
 Story Map
 ---------
@@ -50,6 +54,10 @@ Story Map
  - [DONE] <s>Edit Post</s>
  - Delete Post
  - Add Sequel
+
+Design
+------
+Adjacency List Relationships
 
 dexy notes
 ----------
