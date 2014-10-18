@@ -48,16 +48,24 @@ Feature Ideas
 Story Map
 ---------
  - User Registration
- - User Login
+ - User Login: https://flask-login.readthedocs.org/en/latest/
  - [DONE] <s>Make a Post</s>
  - [DONE] <s>View Posts</s>
  - [DONE] <s>Edit Post</s>
  - Delete Post
  - Add Sequel
+ - Admin interface
+ - Feeds: http://flask.pocoo.org/snippets/10/
+ - Moderation
+ - Scoring: http://flask.pocoo.org/docs/0.10/views/
 
 Design
 ------
-Adjacency List Relationships
+ - Self-referential Many-to-Many Relationship http://docs.sqlalchemy.org/en/rel_0_8/orm/relationships.html#self-referential-many-to-many-relationship
+ - Adding sequel/prequel
+   - Button that brings to page before/after ficlet
+   - Do I want to enable connection of things in a ad-hoc manner?
+     - Search may be a pain
 
 dexy notes
 ----------
@@ -65,3 +73,8 @@ dexy notes
  - Dexy files are executed in copied directory, not working directory. Makes
    extracting test results a bit of a pain. -- This can be changed with a dexy
    setting.
+
+bugs
+----
+ - I can successfully visit URLs that don't yet exist and it doesn't give a
+   proper 404 yet...

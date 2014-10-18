@@ -20,11 +20,3 @@ class CheckDatabase(object):
 
     def teardown_class(cls):
         kiloblog.db.drop_all()
-
-# Database sequels table
-
-# Posting new stories
-
-# Changing stories
-
-# Deleting stories

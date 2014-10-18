@@ -7,9 +7,25 @@
   </head>
   <body>
       <h1>{{ post.title }}</h1>
+      {% if post.prequels %}
+      <h2>Prequels</h2>
+      <ul>
+          {% for prequel in post.prequels %}
+          <li><a href="{{ url_for('show', post_id=prequel.id)}}">{{prequel.title}}</a></li>
+          {% endfor %}
+      </ul>
+      {% endif %}
       <h2><a href="{{ url_for('edit', post_id=post_id) }}">edit</a></h2>
       <div id="content">
           {{ post.content }}
       </div>
+      {% if post.sequels %}
+      <h2>Sequels</h2>
+      <ul>
+          {% for sequel in post.sequels %}
+          <li><a href="{{ url_for('show', post_id=sequel.id)}}">{{sequel.title}}</a></li>
+          {% endfor %}
+      </ul>
+      {% endif %}
   </body>
 </html>

@@ -10,15 +10,19 @@ app.jinja_env.lstrip_blocks = True
 app.config.from_object('default_settings')
 db = SQLAlchemy(app)
 
+chapters = db.Table('chapters',
+           db.Column('prequel_id', db.Integer, db.ForeignKey('post.id')),
+           db.Column('sequel_id', db.Integer, db.ForeignKey('post.id')))
+
 class Post(db.Model):
-    """"
-    Adjacency List Pattern: http://docs.sqlalchemy.org/en/rel_0_9/orm/relationships.html#adjacency-list-relationships
-    """
     id = db.Column(db.Integer, primary_key=True)
-    prequel_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     title = db.Column(db.String(80))
     content = db.Column(db.String(1024), unique=True)
-    sequels = db.relationship('Post', backref=db.backref('prequel', remote_side=[id]))
+    sequels = db.relationship('Post', 
+                              secondary=chapters,
+                              primaryjoin=id==chapters.c.prequel_id,
+                              secondaryjoin=id==chapters.c.sequel_id,
+                              backref=db.backref('prequels'))
 
 PostForm = model_form(Post, base_class=Form,
                       field_args={'content':{'widget':TextArea()}},
