@@ -1,4 +1,5 @@
-from flask import Flask, Response, render_template, request, redirect, url_for
+from flask import (Flask, Response, render_template, request, redirect,
+                   url_for, abort)
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import Form
 from wtforms.ext.sqlalchemy.orm import model_form
@@ -40,12 +41,14 @@ def index():
 
 @app.route('/<int:post_id>')
 def show(post_id):
-    post = Post.query.filter_by(id=post_id).first()
+    post = Post.query.get(post_id)
     return render_template("post.html", post_id=post_id, post=post)
 
 @app.route('/<int:post_id>/edit', methods=('GET', 'POST'))
 def edit(post_id):
-    post = Post.query.filter_by(id=post_id).first()
+    post = Post.query.get(post_id)
+    if not post:
+        abort(404)
     form = PostForm(request.form, post)
     if form.validate_on_submit():
         form.populate_obj(post)
