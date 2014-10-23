@@ -23,6 +23,7 @@ Tasks
  - Metrics integrated into this document
  - PDF output of this document
  - External configuration (external configuraiton definitely does not count against line limit)
+ - Static files (css)
 
 Constraints
 -----------
