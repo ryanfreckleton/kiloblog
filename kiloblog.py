@@ -56,6 +56,3 @@ def edit(post_id):
         db.session.commit()
         return redirect(url_for('show', post_id=post_id))
     return render_template('edit.html', post_id=post_id, form=form)
-
-if __name__ == '__main__':
-    app.run(debug=True)

@@ -6,7 +6,7 @@ content needs to be one kilobyte or less per file.
 So this basically means:
 
  - Python code (not including configurat) 1024 minified + gzipped
- - each html file 1024 minifed + gzipped
+ - total of html file is 1024 minifed + gzipped
  - site CSS 1024 minified + gzipped
  - js library 1024 minified + gzipped
  - site js 1024 minified + gzipped
@@ -17,12 +17,18 @@ that limit.
 
 {{ d['sizes.sh|shint']|indent(indentfirst=true) }}
 
+**STRETCH:** Get the entire app in under 1024 besides libraries and resources
+available on a CDN.
+
 Tasks
 -----
+ - Extract authentication outside of web app and use Apache/Nginx to do
+   authorization.
  - Better testing tools
  - Metrics integrated into this document
  - PDF output of this document
- - External configuration (external configuraiton definitely does not count against line limit)
+ - External configuration (external configuraiton definitely does not count
+   against line limit)
  - Static files (css)
 
 Constraints
