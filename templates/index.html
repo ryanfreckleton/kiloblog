@@ -1,30 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Millific</title>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/min/1.5/min.min.css">
-    <style>
-        #posts {
-            text-align : left;
-            padding-left : 5em;
-        }
-        #new-post {
-            display : table;
-            padding-left : 5em;
-        }
-        #new-post p {
-            display : table-row;
-        }
-        #new-post label {
-            display : table-cell;
-        }
-        #new-post input {
-            display : table-cell;
-        }
-    </style>
-  </head>
-  <body>
+{% extends "base.html" %}
+{% block body %}
       <h1>Millific Prototype</h1>
       <ul id="posts">
       {% for post in listing %}
@@ -43,5 +18,4 @@
               <input type="submit" value="post">
           </p>
       </form>
-  </body>
-</html>
+{% endblock %}
