@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
+<h1>Edit</h1>
 <form method="POST" action="{{ url_for('edit', post_id=post_id) }}">
   {{ form.hidden_tag() }}
   {{ form.title.label }} {{ form.title }}</p>
