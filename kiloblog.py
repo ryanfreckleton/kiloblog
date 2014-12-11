@@ -11,10 +11,12 @@ app.jinja_env.lstrip_blocks = True
 app.config.from_object('default_settings')
 db = SQLAlchemy(app)
 
+### "chapters"
 chapters = db.Table('chapters',
            db.Column('prequel_id', db.Integer, db.ForeignKey('post.id')),
            db.Column('sequel_id', db.Integer, db.ForeignKey('post.id')))
 
+### "Post"
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
@@ -25,10 +27,12 @@ class Post(db.Model):
                               secondaryjoin=id==chapters.c.sequel_id,
                               backref=db.backref('prequels'))
 
+### "form"
 PostForm = model_form(Post, base_class=Form,
                       field_args={'content':{'widget':TextArea()}},
                       only=['title', 'content'])
 
+### "index"
 @app.route('/', methods=('GET', 'POST'))
 def index():
     form = PostForm()
@@ -39,11 +43,13 @@ def index():
         db.session.commit()
     return render_template("index.html", listing=Post.query.all(), form=form)
 
+### "show"
 @app.route('/<int:post_id>')
 def show(post_id):
     post = Post.query.get(post_id)
     return render_template("post.html", post_id=post_id, post=post)
 
+### "edit"
 @app.route('/<int:post_id>/edit', methods=('GET', 'POST'))
 def edit(post_id):
     post = Post.query.get(post_id)

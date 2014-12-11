@@ -3,3 +3,5 @@ README.md|jinja|markdown:
    - kiloblog.py
    - minipy.py
    - templates/*.html
+docs/kiloblog.md|jinja|markdown:
+ - kiloblog.py|idio
