@@ -1,7 +1,10 @@
 README.md|jinja|markdown:
- - sizes.sh|shint:
-   - kiloblog.py
-   - minipy.py
+ - scripts/sizes.sh|shint:
+   - .py
+   - scripts/minipy.py
    - templates/*.html
+ - scripts/kiloblog_size.sh|sh:
+   - .py
+   - scripts/minipy.py
 docs/kiloblog.md|jinja|markdown:
  - kiloblog.py|idio
