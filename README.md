@@ -1,9 +1,8 @@
 KiloBlog
 ========
-A blog engine written in [{{ d['scripts/kiloblog_size.sh|sh'] }} / 1024] bytes
-of minified, gzipped python code. All other content needs to be one kilobyte or
-less per file. HTML in total needs to be one kilobyte or less after
-minification and compression.
+A blog engine written in 1024 bytes of minified, gzipped python code. All other
+content needs to be one kilobyte or less per file. HTML in total needs to be
+one kilobyte or less after minification and compression.
 
 So this basically means:
 
@@ -16,6 +15,27 @@ So this basically means:
 
 Anything not in the list (e.g. tests, documentation, initial data) do not have
 that limit.
+
+Statistics:
+-----------
+<table>
+<tr>
+<td>
+Python Source
+</td>
+<td>
+{{ d['scripts/kiloblog_size.sh|sh'] }} / 1024
+</td>
+</tr>
+<tr>
+<td>
+HTML Templates
+</td>
+<td>
+{{ d['scripts/html_size.sh|sh'] }} / 1024
+</td>
+</tr>
+</table>
 
 {{ d['scripts/sizes.sh|shint']|indent(indentfirst=true) }}
 

@@ -6,5 +6,8 @@ README.md|jinja|markdown:
  - scripts/kiloblog_size.sh|sh:
    - .py
    - scripts/minipy.py
+ - scripts/html_size.sh|sh:
+   - templates/*.html
+   - scripts/*.jar
 docs/kiloblog.md|jinja|markdown:
  - kiloblog.py|idio
