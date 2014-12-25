@@ -39,9 +39,6 @@ HTML Templates
 
 {{ d['scripts/sizes.sh|shint']|indent(indentfirst=true) }}
 
-**STRETCH:** Get the entire app in under 1024 besides libraries and resources
-available on a CDN.
-
 Tasks
 -----
  - Extract authentication outside of web app and use Apache/Nginx to do
