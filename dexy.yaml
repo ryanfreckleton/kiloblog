@@ -11,3 +11,5 @@ README.md|jinja|markdown:
    - scripts/*.jar
 docs/kiloblog.md|jinja|markdown:
  - kiloblog.py|idio
+docs/tests.md|jinja|markdown:
+ - docs/tests.md
