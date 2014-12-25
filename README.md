@@ -92,6 +92,9 @@ Design
    - Button that brings to page before/after ficlet
    - Do I want to enable connection of things in a ad-hoc manner?
      - Search may be a pain
+ - Functional core imperative shell: Fundamental functionality should
+   be...functional everything else should be limited to one file with
+   mutability.
 
 dexy notes
 ----------
