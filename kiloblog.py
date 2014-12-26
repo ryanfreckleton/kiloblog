@@ -62,3 +62,15 @@ def edit(post_id):
         db.session.commit()
         return redirect(url_for('show', post_id=post_id))
     return render_template('edit.html', post_id=post_id, form=form)
+
+### "post"
+@app.route('/new', methods=('GET', 'POST'))
+def post():
+    post = Post()
+    form = PostForm(request.form, post)
+    if form.validate_on_submit():
+        form.populate_obj(post)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('show', post_id=post.id))
+    return render_template('new.html', post_id=post.id, form=form)
