@@ -2,7 +2,8 @@ KiloBlog
 ========
 A blog engine written in 1024 bytes of minified, gzipped python code. All other
 content needs to be one kilobyte or less per file. HTML in total needs to be
-one kilobyte or less after minification and compression.
+one kilobyte or less after minification and compression. Libraries don't count
+if they're on PyPI.
 
 So this basically means:
 
@@ -78,8 +79,8 @@ Story Map
  - [DONE] <s>Make a Post</s>
  - [DONE] <s>View Posts</s>
  - [DONE] <s>Edit Post</s>
+ - [DONE] <s>Add Sequel</s>
  - Delete Post
- - Add Sequel
  - Admin interface
  - Feeds: http://flask.pocoo.org/snippets/10/
  - Moderation
