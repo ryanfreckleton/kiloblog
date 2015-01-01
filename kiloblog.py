@@ -26,6 +26,8 @@ class Post(db.Model):
                               primaryjoin=id==chapters.c.prequel_id,
                               secondaryjoin=id==chapters.c.sequel_id,
                               backref=db.backref('prequels'))
+    def __repr__(self):
+        return '<%s %s>' % (self.__class__, self.title)
 
 ### "form"
 PostForm = model_form(Post, base_class=Form,
