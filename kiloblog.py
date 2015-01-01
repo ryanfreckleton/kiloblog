@@ -27,7 +27,7 @@ class Post(db.Model):
                               secondaryjoin=id==chapters.c.sequel_id,
                               backref=db.backref('prequels'))
     def __repr__(self):
-        return '<%s %s>' % (self.__class__, self.title)
+        return '<%s %s>' % (self.__class__.__name__, self.title)
 
 ### "form"
 PostForm = model_form(Post, base_class=Form,
@@ -68,11 +68,20 @@ def edit(post_id):
 ### "post"
 @app.route('/new', methods=('GET', 'POST'))
 def post():
+    sequel = Post.query.get(int(request.args.get('sequel') or 0))
+    print sequel
+    prequel = Post.query.get(int(request.args.get('prequel') or 0))
+    print prequel
     post = Post()
     form = PostForm(request.form, post)
     if form.validate_on_submit():
         form.populate_obj(post)
+        if sequel:
+            post.sequels.append(sequel)
+        if prequel:
+            post.prequels.append(prequel)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('show', post_id=post.id))
-    return render_template('new.html', post_id=post.id, form=form)
+    return render_template('new.html', post_id=post.id, form=form,
+                           sequel=sequel, prequel=prequel)

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <h1>{{ post.title }}</h1>
-<a href="{{ url_for('post') }}">Create Prequel</a>
+<a href="{{ url_for('post') }}?sequel={{post.id}}">Create Prequel</a>
 {% if post.prequels %}
 <h2>Prequels</h2>
 <ul>
@@ -14,7 +14,7 @@
 <div id="content">
     {{ post.content }}
 </div>
-<a href="{{ url_for('post') }}">Create Sequel</a>
+<a href="{{ url_for('post') }}?prequel={{post.id}}">Create Sequel</a>
 {% if post.sequels %}
 <h2>Sequels</h2>
 <ul>
