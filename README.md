@@ -1,110 +1,44 @@
 KiloBlog
 ========
-A blog engine written in 1024 bytes of minified, gzipped python code. All other
-content needs to be one kilobyte or less per file. HTML in total needs to be
-one kilobyte or less after minification and compression. Libraries don't count
-if they're on PyPI.
+A simple blog engine written in 1024 bytes of minified, gzipped python code.
 
-So this basically means:
+- https://github.com/ryanfreckleton/kiloblog
 
- - Python code (not including configurat) 1024 minified + gzipped
- - total of html file is 1024 minifed + gzipped
- - site CSS 1024 minified + gzipped
- - js library 1024 minified + gzipped
- - site js 1024 minified + gzipped
- - CSS framework 1024 minified + gzipped
+Designed primarily as a starting point for others to expand on and teaching tool.
+Non-python code also needs to be 1024 bytes when minified.
+Libraries through CDN or installable from PyPI don't count towards the limit.
 
-Anything not in the list (e.g. tests, documentation, initial data) do not have
-that limit.
+Tests, configuration, build files, etc. don't count towards this limit.
+
+So this means:
+
+- Python [gzipped/minified] 1 kilobyte
+- HTML [gzipped/minified] 1 kilobyte
+- CSS [gzipped/minified] 1 kilobyte
+- Javascript [gzipped/minified] 1 kilobyte
+
+Total: 4 kilobytes
+
+Build Status
+------------
+TBD
 
 Statistics:
 -----------
-<table>
-<tr>
-<td>
-Python Source
-</td>
-<td>
-{{ d['scripts/kiloblog_size.sh|sh'] }} / 1024
-</td>
-</tr>
-<tr>
-<td>
-HTML Templates
-</td>
-<td>
-{{ d['scripts/html_size.sh|sh'] }} / 1024
-</td>
-</tr>
-</table>
+- Python -- TBD
+- HTML -- TBD
+- CSS -- TBD
+- Javascript -- TBD
 
-{{ d['scripts/sizes.sh|shint']|indent(indentfirst=true) }}
-
-Tasks
------
- - Extract authentication outside of web app and use Apache/Nginx to do
-   authorization.
- - Better testing tools
- - Metrics integrated into this document
- - PDF output of this document
- - External configuration (external configuraiton definitely does not count
-   against line limit)
- - Static files (css)
-
-Constraints
------------
- - All libraries used must be general use and published to PyPI.
- - The kilobyte limitation is for source code, not for assets, input data, etc.
- - Everything is documented, literate programming style, with dexy
- - Test results are colorized and pretty and also integrated, possibly with
-   metrics.
-
-Feature Ideas
--------------
- - Character limit on posts of 1024
- - Tagging
- - Rating
- - Mozilla Persona
- - Sandboy?
-### Sequels/threads (Ficlet!) ###
- - Input: Users select millific to sequel or prequel by clicking "Make sequel"
-   or "Make prequel" link, new form opens up that has a prepopulated hidden
-   field or maybe a sub URL for that specific story.
- - Prequels and sequels are listed on the page for the story.
-
-Story Map
----------
- - User Registration
- - User Login: https://flask-login.readthedocs.org/en/latest/
- - [DONE] <s>Make a Post</s>
- - [DONE] <s>View Posts</s>
- - [DONE] <s>Edit Post</s>
- - [DONE] <s>Add Sequel</s>
- - Delete Post
- - Admin interface
- - Feeds: http://flask.pocoo.org/snippets/10/
- - Moderation
- - Scoring: http://flask.pocoo.org/docs/0.10/views/
-
-Design
-------
- - Self-referential Many-to-Many Relationship http://docs.sqlalchemy.org/en/rel_0_8/orm/relationships.html#self-referential-many-to-many-relationship
- - Adding sequel/prequel
-   - Button that brings to page before/after ficlet
-   - Do I want to enable connection of things in a ad-hoc manner?
-     - Search may be a pain
- - Functional core imperative shell: Fundamental functionality should
-   be...functional everything else should be limited to one file with
-   mutability.
-
-dexy notes
-----------
- - Markdown filter does not work without jinja in-between filename and filter
- - Dexy files are executed in copied directory, not working directory. Makes
-   extracting test results a bit of a pain. -- This can be changed with a dexy
-   setting.
-
-bugs
+TODO
 ----
  - I can successfully visit URLs that don't yet exist and it doesn't give a
    proper 404 yet...
+
+Author
+------
+- Ryan Freckleton
+
+License
+-------
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
