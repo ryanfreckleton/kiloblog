@@ -69,9 +69,9 @@ def edit(post_id):
 @app.route('/new', methods=('GET', 'POST'))
 def post():
     sequel = Post.query.get(int(request.args.get('sequel') or 0))
-    print sequel
+    print(sequel)
     prequel = Post.query.get(int(request.args.get('prequel') or 0))
-    print prequel
+    print(prequel)
     post = Post()
     form = PostForm(request.form, post)
     if form.validate_on_submit():
