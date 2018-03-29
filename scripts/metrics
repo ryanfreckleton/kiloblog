@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+
+rm -rf metrics
+mkdir metrics
+# HTML
+for i in $(ls templates/*.html)
+do
+htmlmin $i >> metrics/html
+done
+
+echo "HTML" `cat build/html | gzip | wc -c`
+
+# CSS
+# Python
+# JavaScript

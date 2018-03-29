@@ -1,0 +1,2 @@
+metrics:
+	./scripts/metrics
