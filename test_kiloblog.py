@@ -1,6 +1,7 @@
 import kiloblog
 
-class CheckDatabase(object):
+
+class TestDatabase(object):
     def setup_class(cls):
         kiloblog.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         kiloblog.db.create_all()
@@ -8,10 +9,10 @@ class CheckDatabase(object):
         kiloblog.db.session.add(cls.post1)
         kiloblog.db.session.commit()
 
-    def check_post1_exists(self):
+    def test_post1_exists(self):
         assert kiloblog.Post.query.get(1) is not None
 
-    def check_sequels(self):
+    def test_sequels(self):
         new_post = kiloblog.Post(title='Post 2', content='Content 2')
         self.post1.sequels.append(new_post)
         kiloblog.db.session.add(new_post)
