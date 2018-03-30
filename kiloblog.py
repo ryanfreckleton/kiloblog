@@ -88,3 +88,7 @@ def post():
         return redirect(url_for('show', post_id=post.id))
     return render_template('new.html', post_id=post.id, form=form,
                            sequel=sequel, prequel=prequel)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
