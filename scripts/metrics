@@ -9,8 +9,14 @@ do
 htmlmin $i >> metrics/html
 done
 
-echo "HTML" `cat build/html | gzip | wc -c`
+echo "HTML" `cat metrics/html | gzip | wc -c`
 
-# CSS
 # Python
+pyminifier kiloblog.py | head -n -2 > metrics/kiloblog.py
+
+echo "Python" `cat metrics/kiloblog.py | gzip | wc -c`
+
 # JavaScript
+# CSS
+
+rm -rf metrics
