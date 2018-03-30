@@ -5,10 +5,13 @@ from flask.ext.wtf import Form
 from wtforms.ext.sqlalchemy.orm import model_form
 from wtforms.widgets import TextArea
 
+SQLALCHEMY_DATABASE_URI = 'sqlite:///kiloblog.db'
+SECRET_KEY = '[CHANGE IN PRODUCTION]'
+
 app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
-app.config.from_object('default_settings')
+app.config.from_object(__name__)
 db = SQLAlchemy(app)
 
 ### "chapters"

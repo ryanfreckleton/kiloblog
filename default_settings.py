@@ -1,2 +1,0 @@
-SQLALCHEMY_DATABASE_URI = 'sqlite:///kiloblog.db'
-SECRET_KEY = '[CHANGE IN PRODUCTION]'
