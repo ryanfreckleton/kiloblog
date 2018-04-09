@@ -21,7 +21,16 @@ Total: 4 kilobytes
 
 Quick Start
 -----------
-TBD
+To get started, set environment variables `SUPERUSER` and `SUPERUSER_PASSWORD` and run kiloblog.py with
+
+    $ ./kiloblog.py
+
+It should run at `localhost:5000` at which point you should be able to login.
+
+Deployment
+----------
+- Heroku
+- Waitress, etc.
 
 Build Status
 ------------
