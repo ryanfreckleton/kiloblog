@@ -1,21 +1,14 @@
-{% extends "base.html" %}
-{% block body %}
-      <h1>Millific Prototype</h1>
-      <ul id="posts">
-      {% for post in listing %}
-      <li><a href="{{ url_for('show', post_id=post.id) }}">{{ post.title }}</a></li>
-      {% endfor %}
-      </ul>
-      <form id="new-post" method="POST" action="/">
-          {{ form.hidden_tag() }}
-          <p>
-              {{ form.title.label }} {{ form.title }}
-          </p>
-          <p>
-              {{ form.content.label }} {{ form.content }}
-          </p>
-          <p>
-              <input type="submit" value="post">
-          </p>
-      </form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{blog_title}}</title>
+        <link rel="stylesheet" href="https://cdn.rawgit.com/mblode/marx/master/css/marx.min.css">
+    </head>
+    <body>
+        <main>
+        <h1>{{blog_title}}</h1>
+        Hello, World!
+        </main>
+    </body>
+</html>
