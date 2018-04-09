@@ -8,12 +8,9 @@ db = SQLAlchemy(app)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Colun(db.String(80), nullable=False)
-    content = db.Column(db.Text(120, nullable=False))
-    pub_time = db.Column(db.Date())
-
-    def __repr__(self):
-        return '<User %r>' % self.username
+    title = db.Column(db.String(80), nullable=False)
+    content = db.Column(db.Text(), nullable=False)
+    pub_time = db.Column(db.Date(), nullable=False)
 
 
 @app.route('/')
