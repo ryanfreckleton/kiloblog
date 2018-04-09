@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pyminifier kiloblog.py | head -n -2 | gzip --best | wc --bytes

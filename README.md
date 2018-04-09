@@ -38,10 +38,10 @@ TBD
 
 Statistics:
 -----------
-- Python -- TBD
-- HTML -- TBD
-- CSS -- TBD
-- Javascript -- TBD
+- Python -- 972/1024 [95%]
+- HTML -- 684/1024 [67%]
+- CSS -- 0/1024 [0%]
+- Javascript -- 0/1024 [0%]
 
 TODO
 ----

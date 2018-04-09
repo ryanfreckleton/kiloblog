@@ -1,0 +1,2 @@
+#!/bin/sh
+cat templates/*.html | htmlmin | gzip --best | wc --bytes
