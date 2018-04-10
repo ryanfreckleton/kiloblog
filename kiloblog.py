@@ -2,6 +2,7 @@ import datetime
 
 import attr
 import flask
+import flask_login
 import flask_sqlalchemy
 import flask_wtf
 import wtforms
@@ -11,6 +12,44 @@ from slugify import slugify
 app = flask.Flask(__name__)
 app.config.from_envvar('KILOBLOG_SETTINGS')
 db = flask_sqlalchemy.SQLAlchemy(app)
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
+
+users = ['admin']
+
+
+class User(flask_login.UserMixin):
+    pass
+
+
+@login_manager.user_loader
+def user_loader(user_id):
+    if user_id not in users:
+        return None
+    user = User()
+    user.id = user_id
+    return user
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if flask.request.method == 'GET':
+        return flask.render_template('login.html')
+    email = flask.request.form['email']
+    if flask.request.form['password'] == app.config['PASSWORD']:
+        user = User()
+        user.id = email
+        flask_login.login_user(user)
+        return flask.redirect(flask.url_for('protected'))
+
+    return 'Bad login'
+
+
+@app.route('/logout')
+@flask_login.login_required
+def logout():
+    flask_login.logout_user()
+    return 'Logged out'
 
 
 @attr.s(frozen=True)
@@ -18,8 +57,8 @@ class Save:
     post = attr.ib()
 
     def do(self):
-        pm = PostModel(title=self.post.title, content=self.post.content, pub_date=self.post.pub_date, slug=self.post.slug)
-        db.session.add(pm)
+        self.post.slug = slugify(self.post.title)
+        db.session.add(self.post)
         db.session.commit()
 
 
@@ -37,22 +76,7 @@ class RedirectToPost:
         ))
 
 
-@attr.s(frozen=True)
-class Post:
-    title = attr.ib()
-    content = attr.ib()
-    pub_date = attr.ib()
-
-    @property
-    def slug(self):
-        return slugify(self.title)
-
-    @classmethod
-    def from_model(cls, model):
-        return cls(title=model.title, content=model.content, pub_date=model.pub_date)
-
-
-class PostModel(db.Model):
+class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     content = db.Column(db.Text(), nullable=False)
@@ -72,8 +96,8 @@ def index():
 
 @app.route('/<int:year>/<int:month>/<int:day>/<slug>')
 def view_post(year, month, day, slug):
-    model = PostModel.query.filter_by(slug=slug, pub_date=datetime.date(year, month, day)).first()
-    return flask.render_template('post.html', post=Post.from_model(model))
+    post = Post.query.filter_by(slug=slug, pub_date=datetime.date(year, month, day)).first()
+    return flask.render_template('post.html', post=post)
 
 
 class PostForm(flask_wtf.FlaskForm):
@@ -82,6 +106,7 @@ class PostForm(flask_wtf.FlaskForm):
 
 
 @app.route('/new', methods=['GET', 'POST'])
+@flask_login.login_required
 def new():
     form = PostForm()
     if form.validate_on_submit():
