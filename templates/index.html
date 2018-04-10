@@ -7,6 +7,6 @@
                     month=post.pub_date.month,
                     day=post.pub_date.day,
                     slug=post.slug)}}">{{post.title}}</a> <small>{{post.pub_date}}</small></h1>
-{{post.content|truncate(160)}}
+{{post.content|markdown|truncate(160)}}
 {% endfor %}
 {% endblock %}
