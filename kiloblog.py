@@ -163,7 +163,7 @@ def user_loader(user_id):
     """
     Only handle one user_id, that of the administrator.
     """
-    if user_id != 'admin':
+    if user_id != app.config['ADMIN_USERNAME']:
         return None
     user = User()
     user.id = user_id
