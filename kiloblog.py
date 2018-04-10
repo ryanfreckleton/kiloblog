@@ -1,20 +1,23 @@
-from datetime import date
+import datetime
 
-from attr import attrs, attrib
+import attr
+import flask
+import flask_sqlalchemy
+import flask_wtf
+import wtforms
+
 from slugify import slugify
 
-from flask import Flask, render_template, redirect, url_for, request
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
+app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 app.config['BLOG_TITLE'] = "A Byte Sized Blog"
-db = SQLAlchemy(app)
+app.config['SECRET_KEY'] = b"T\xe6\xe2|8\xe4\x052\xda\x14\xe2',Oa\xeaO\x07\xac\x1b\xbbu\xcas\xd8\x1a\x93\xc0\xc9\xc4zV"
+db = flask_sqlalchemy.SQLAlchemy(app)
 
 
-@attrs(frozen=True)
+@attr.s(frozen=True)
 class Save:
-    post = attrib()
+    post = attr.ib()
 
     def do(self):
         pm = PostModel(title=self.post.title, content=self.post.content, pub_date=self.post.pub_date)
@@ -22,12 +25,12 @@ class Save:
         db.session.commit()
 
 
-@attrs(frozen=True)
+@attr.s(frozen=True)
 class RedirectToPost:
-    post = attrib()
+    post = attr.ib()
 
     def do(self):
-        return redirect(url_for(
+        return flask.redirect(flask.url_for(
             'view_post',
             year=self.post.pub_date.year,
             month=self.post.pub_date.month,
@@ -36,11 +39,11 @@ class RedirectToPost:
         ))
 
 
-@attrs(frozen=True)
+@attr.s(frozen=True)
 class Post:
-    title = attrib()
-    content = attrib()
-    pub_date = attrib()
+    title = attr.ib()
+    content = attr.ib()
+    pub_date = attr.ib()
 
     @property
     def slug(self):
@@ -61,7 +64,7 @@ def make_post(data):
 
 @app.route('/')
 def index():
-    return render_template('index.html', blog_title=app.config['BLOG_TITLE'])
+    return flask.render_template('index.html', blog_title=app.config['BLOG_TITLE'])
 
 
 @app.route('/<year>/<month>/<day>/<slug>')
@@ -69,9 +72,20 @@ def view_post(year, month, day, slug):
     return "TBD"
 
 
+class NewForm(flask_wtf.FlaskForm):
+    title = wtforms.StringField()
+    content = wtforms.TextAreaField()
+
+
 @app.route('/new', methods=['GET', 'POST'])
 def new():
-    if request.method == 'POST':
-        ...
-    elif request.method == 'GET':
-        ...
+    form = NewForm()
+    if form.validate_on_submit():
+        data = form.data.copy()
+        del data['csrf_token']
+        data['pub_date'] = datetime.date.today()
+        for action in make_post(data):
+            done = action.do()
+            if done:
+                return done
+    return flask.render_template('new.html', blog_title=app.config['BLOG_TITLE'], form=form)

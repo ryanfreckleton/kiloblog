@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{{blog_title}}</title>
+        <link rel="stylesheet" href="https://cdn.rawgit.com/mblode/marx/master/css/marx.min.css">
+    </head>
+    <body>
+        <main>
+        <h1>{{blog_title}}</h1>
+        <h2>New Post</h2>
+        <form action="/new" method="POST">
+            {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {% endfor %}
+            <input type="submit" name="save"/>
+        </form>
+        </main>
+    </body>
+</html>
