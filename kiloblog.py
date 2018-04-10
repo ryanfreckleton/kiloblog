@@ -14,6 +14,7 @@ app.config.from_envvar('KILOBLOG_SETTINGS')
 db = flask_sqlalchemy.SQLAlchemy(app)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 users = ['admin']
 
@@ -40,7 +41,7 @@ def login():
         user = User()
         user.id = email
         flask_login.login_user(user)
-        return flask.redirect(flask.url_for('protected'))
+        return flask.redirect(flask.url_for('index'))
 
     return 'Bad login'
 
