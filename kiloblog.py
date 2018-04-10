@@ -3,7 +3,7 @@ from datetime import date
 from attr import attrs, attrib
 from slugify import slugify
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -27,13 +27,13 @@ class RedirectToPost:
     post = attrib()
 
     def do(self):
-        return redirect(
-            url_for('view_post',
-                    year=self.post.pub_date.year,
-                    month=self.post.pub_date.month,
-                    day=self.post.pub_date.day,
-                    slug=self.post.slug)
-        )
+        return redirect(url_for(
+            'view_post',
+            year=self.post.pub_date.year,
+            month=self.post.pub_date.month,
+            day=self.post.pub_date.day,
+            slug=self.post.slug
+        ))
 
 
 @attrs(frozen=True)
@@ -67,3 +67,11 @@ def index():
 @app.route('/<year>/<month>/<day>/<slug>')
 def view_post(year, month, day, slug):
     return "TBD"
+
+
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+    if request.method == 'POST':
+        ...
+    elif request.method == 'GET':
+        ...
