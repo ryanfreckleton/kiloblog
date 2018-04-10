@@ -1,7 +1,8 @@
 {% extends "_base.html" %}
 {% block body %}
 <form action='login' method='POST'>
-    {% for field in form %}
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
     {{field.label}} {{field}}
     {% endfor %}
     <input type='submit' name='submit'/>

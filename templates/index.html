@@ -1,7 +1,12 @@
 {% extends "_base.html" %}
 {% block body %}
 {% for post in posts %}
-<h2>{{post.title}} <small>{{post.pub_date}}</small></h2>
-{{post.content}}
+<h2><a href="{{url_for(
+                    'view_post',
+                    year=post.pub_date.year,
+                    month=post.pub_date.month,
+                    day=post.pub_date.day,
+                    slug=post.slug)}}">{{post.title}}</a> <small>{{post.pub_date}}</small></h1>
+{{post.content|truncate(160)}}
 {% endfor %}
 {% endblock %}

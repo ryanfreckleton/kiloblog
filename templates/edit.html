@@ -1,6 +1,11 @@
 {% extends "_base.html" %}
 {% block body %}
-<form action="/new" method="POST">
+<form action="{{url_for(
+                    'edit_post',
+                    year=post.pub_date.year,
+                    month=post.pub_date.month,
+                    day=post.pub_date.day,
+                    slug=post.slug)}}" method="POST">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     <label>{{ field.label }}</label>

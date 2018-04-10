@@ -1,5 +1,6 @@
 import datetime
 
+import bcrypt
 import flask
 import flask_login
 import flask_sqlalchemy
@@ -42,6 +43,29 @@ def view_post(year, month, day, slug):
     return flask.render_template('post.html', post=post)
 
 
+@app.route('/<int:year>/<int:month>/<int:day>/<slug>/edit', methods=['GET', 'POST'])
+@flask_login.login_required
+def edit_post(year, month, day, slug):
+    """
+    Edit an existing blog post.
+    """
+    post = Post.query.filter_by(slug=slug, pub_date=datetime.date(year, month, day)).first()
+    form = PostForm(title=post.title, content=post.content)
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.add(post)
+        db.session.commit()
+        return flask.redirect(flask.url_for(
+            'view_post',
+            year=post.pub_date.year,
+            month=post.pub_date.month,
+            day=post.pub_date.day,
+            slug=post.slug
+        ))
+    return flask.render_template('edit.html', post=post, form=form)
+
+
 @app.route('/')
 def index():
     """
@@ -52,16 +76,15 @@ def index():
 
 @app.route('/new', methods=['GET', 'POST'])
 @flask_login.login_required
-def new():
+def new_post():
     """
     Display and handle form for creating a new blog post.
     """
     form = PostForm()
     if form.validate_on_submit():
         data = form.data.copy()
-        del data['csrf_token']
-        data['pub_date'] = datetime.date.today()
-        post = Post(**data)
+        data.pop('csrf_token')
+        post = Post(pub_date=datetime.date.today(), **data)
         post.slug = slugify(post.title)
         db.session.add(post)
         db.session.commit()
@@ -81,6 +104,43 @@ class PostForm(flask_wtf.FlaskForm):
     """
     title = wtforms.StringField()
     content = wtforms.TextAreaField()
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """
+    Log user in, flash if bad login and redirect to index page.
+    """
+    form = LoginForm()
+    if form.validate_on_submit():
+        if bcrypt.checkpw(form.password.data.encode('UTF-8'), app.config['PASSWORD']):
+            flask_login.login_user(user_loader(form.username.data))
+        else:
+            flask.flash('Bad login')
+            return flask.redirect(flask.url_for('login'))
+        return flask.redirect(flask.url_for('index'))
+    return flask.render_template('login.html', form=form)
+
+
+class LoginForm(flask_wtf.FlaskForm):
+    """
+    Form for creating or editing a blog post.
+    """
+    username = wtforms.StringField()
+    password = wtforms.PasswordField()
+
+
+@app.route('/logout')
+@flask_login.login_required
+def logout():
+    """
+    Log out user when they request /logout with a GET.
+
+    Flash status that the user has logged out.
+    """
+    flask_login.logout_user()
+    flask.flash('Logged out')
+    return flask.redirect(flask.url_for('index'))
 
 
 @app.context_processor
@@ -108,39 +168,3 @@ def user_loader(user_id):
     user = User()
     user.id = user_id
     return user
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    """
-    Log user in, flash if bad login and redirect to index page.
-    """
-    form = LoginForm()
-    if form.validate_on_submit():
-        if form.password.data == app.config['PASSWORD']:
-            flask_login.login_user(user_loader(form.username.data))
-        else:
-            flask.flash('Bad login')
-        return flask.redirect(flask.url_for('index'))
-    return flask.render_template('login.html', form=form)
-
-
-class LoginForm(flask_wtf.FlaskForm):
-    """
-    Form for creating or editing a blog post.
-    """
-    username = wtforms.StringField()
-    password = wtforms.PasswordField()
-
-
-@app.route('/logout')
-@flask_login.login_required
-def logout():
-    """
-    Log out user when they request /logout with a GET.
-
-    Flash status that the user has logged out.
-    """
-    flask_login.logout_user()
-    flask.flash('Logged out')
-    return flask.redirect(flask.url_for('index'))
