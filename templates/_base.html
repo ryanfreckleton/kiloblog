@@ -2,11 +2,41 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{blog_title}}</title>
         <link rel="stylesheet" href="https://cdn.rawgit.com/mblode/marx/master/css/marx.min.css">
+        <style>
+            ul.links {
+                background-color: black;
+            }
+            ul.links li {
+                display: inline;
+                padding: 1ex;
+            }
+
+            ul.links a {
+                color: white;
+            }
+
+            ul.messages li {
+                padding : 1ex;
+                background-color: red;
+                color: white;
+                border-radius: 1ex;
+            }
+        </style>
     </head>
     <body>
         <main>
+            <ul class="links">
+                <li><a href="{{url_for("index")}}">Home</a></li>
+                {% if not current_user.is_authenticated %}
+                <li><a href="{{url_for("login")}}">Login</a></li>
+                {% else %}
+                <li><a href="{{url_for("new")}}">New Post</a></li>
+                <li><a href="{{url_for("logout")}}">Logout</a></li>
+                {% endif %}
+            </ul>
             {% with messages = get_flashed_messages() %}
               {% if messages %}
                 <ul class="messages">
