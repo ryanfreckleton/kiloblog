@@ -115,17 +115,22 @@ def login():
     """
     Log user in, flash if bad login and redirect to index page.
     """
-    if flask.request.method == 'GET':
-        return flask.render_template('login.html')
-    user_id = flask.request.form['user_id']
-    if flask.request.form['password'] == app.config['PASSWORD']:
-        user = User()
-        user.id = user_id
-        flask_login.login_user(user)
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.password.data == app.config['PASSWORD']:
+            flask_login.login_user(user_loader(form.username.data))
+        else:
+            flask.flash('Bad login')
         return flask.redirect(flask.url_for('index'))
+    return flask.render_template('login.html', form=form)
 
-    flask.flash('Bad login')
-    return flask.redirect('login')
+
+class LoginForm(flask_wtf.FlaskForm):
+    """
+    Form for creating or editing a blog post.
+    """
+    username = wtforms.StringField()
+    password = wtforms.PasswordField()
 
 
 @app.route('/logout')
