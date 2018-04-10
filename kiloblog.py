@@ -19,6 +19,11 @@ login_manager.login_view = 'login'
 users = ['admin']
 
 
+@app.context_processor
+def context_processor():
+    return dict(blog_title=app.config['BLOG_TITLE'])
+
+
 class User(flask_login.UserMixin):
     pass
 
@@ -78,11 +83,10 @@ class RedirectToPost:
 
 
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), nullable=False)
+    title = db.Column(db.String(80), primary_key=True)
+    slug = db.Column(db.String(80), primary_key=True)
     content = db.Column(db.Text(), nullable=False)
     pub_date = db.Column(db.Date(), nullable=False)
-    slug = db.Column(db.String(80), nullable=False)
 
 
 def make_post(data):
@@ -92,7 +96,7 @@ def make_post(data):
 
 @app.route('/')
 def index():
-    return flask.render_template('index.html', blog_title=app.config['BLOG_TITLE'])
+    return flask.render_template('index.html', posts=Post.query.all())
 
 
 @app.route('/<int:year>/<int:month>/<int:day>/<slug>')
@@ -118,4 +122,4 @@ def new():
             done = action.do()
             if done:
                 return done
-    return flask.render_template('new.html', blog_title=app.config['BLOG_TITLE'], form=form)
+    return flask.render_template('new.html', form=form)
