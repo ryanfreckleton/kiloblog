@@ -7,6 +7,15 @@
     </head>
     <body>
         <main>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
             <h1>{{blog_title}}</h1>
             {% block body %}
             {% endblock %}
