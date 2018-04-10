@@ -82,10 +82,10 @@ def new_post():
     """
     form = PostForm()
     if form.validate_on_submit():
-        data = form.data.copy()
-        data.pop('csrf_token')
-        post = Post(pub_date=datetime.date.today(), **data)
+        post = Post(pub_date=datetime.date.today())
         post.slug = slugify(post.title)
+        post.title = form.title.data
+        post.content = form.content.data
         db.session.add(post)
         db.session.commit()
         return flask.redirect(flask.url_for(
