@@ -20,7 +20,7 @@ class Save:
     post = attr.ib()
 
     def do(self):
-        pm = PostModel(title=self.post.title, content=self.post.content, pub_date=self.post.pub_date)
+        pm = PostModel(title=self.post.title, content=self.post.content, pub_date=self.post.pub_date, slug=self.post.slug)
         db.session.add(pm)
         db.session.commit()
 
@@ -49,12 +49,17 @@ class Post:
     def slug(self):
         return slugify(self.title)
 
+    @classmethod
+    def from_model(cls, model):
+        return cls(title=model.title, content=model.content, pub_date=model.pub_date)
+
 
 class PostModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     pub_date = db.Column(db.Date(), nullable=False)
+    slug = db.Column(db.String(80), nullable=False)
 
 
 def make_post(data):
@@ -67,19 +72,20 @@ def index():
     return flask.render_template('index.html', blog_title=app.config['BLOG_TITLE'])
 
 
-@app.route('/<year>/<month>/<day>/<slug>')
+@app.route('/<int:year>/<int:month>/<int:day>/<slug>')
 def view_post(year, month, day, slug):
-    return "TBD"
+    model = PostModel.query.filter_by(slug=slug, pub_date=datetime.date(year, month, day)).first()
+    return flask.render_template('post.html', post=Post.from_model(model))
 
 
-class NewForm(flask_wtf.FlaskForm):
+class PostForm(flask_wtf.FlaskForm):
     title = wtforms.StringField()
     content = wtforms.TextAreaField()
 
 
 @app.route('/new', methods=['GET', 'POST'])
 def new():
-    form = NewForm()
+    form = PostForm()
     if form.validate_on_submit():
         data = form.data.copy()
         del data['csrf_token']
