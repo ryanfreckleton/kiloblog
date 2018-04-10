@@ -89,10 +89,6 @@ class Post(db.Model):
     pub_date = db.Column(db.Date(), nullable=False)
 
 
-def make_post(data):
-    post = Post(**data)
-    return [Save(post), RedirectToPost(post)]
-
 
 @app.route('/')
 def index():
@@ -118,7 +114,8 @@ def new():
         data = form.data.copy()
         del data['csrf_token']
         data['pub_date'] = datetime.date.today()
-        for action in make_post(data):
+        post = Post(**data)
+        for action in [Save(post), RedirectToPost(post)]:
             done = action.do()
             if done:
                 return done
