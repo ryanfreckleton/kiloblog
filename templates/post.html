@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>{{blog_title}}</title>
-        <link rel="stylesheet" href="https://cdn.rawgit.com/mblode/marx/master/css/marx.min.css">
-    </head>
-    <body>
-        <main>
-        <h1>{{blog_title}}</h1>
-        <h2>{{post.title}}</h2>
-        {{post.content}}
-        </main>
-    </body>
-</html>
+{% extends "_base.html" %}
+{% block body %}
+<h1>{{blog_title}}</h1>
+<h2>{{post.title}}</h2>
+{{post.content}}
+{% endblock %}
