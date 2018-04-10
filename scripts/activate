@@ -1,2 +1,3 @@
 alias metrics='echo Python $(./scripts/metrics_py); echo HTML $(./scripts/metrics_html)'
 export FLASK_APP=kiloblog.py
+export KILOBLOG_SETTINGS=kiloblog.cfg

@@ -9,9 +9,7 @@ import wtforms
 from slugify import slugify
 
 app = flask.Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-app.config['BLOG_TITLE'] = "A Byte Sized Blog"
-app.config['SECRET_KEY'] = b"T\xe6\xe2|8\xe4\x052\xda\x14\xe2',Oa\xeaO\x07\xac\x1b\xbbu\xcas\xd8\x1a\x93\xc0\xc9\xc4zV"
+app.config.from_envvar('KILOBLOG_SETTINGS')
 db = flask_sqlalchemy.SQLAlchemy(app)
 
 
