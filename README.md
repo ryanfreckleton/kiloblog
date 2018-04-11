@@ -13,11 +13,9 @@ Tests, configuration, build files, etc. don't count towards this limit.
 So this means:
 
 - Python [gzipped/minified] 1 kilobyte
-- HTML [gzipped/minified] 1 kilobyte
-- CSS [gzipped/minified] 1 kilobyte
-- Javascript [gzipped/minified] 1 kilobyte
+- Templates [gzipped/minified] 1 kilobyte
 
-Total: 4 kilobytes
+Total: 2 kilobytes
 
 Quick Start
 -----------
@@ -27,10 +25,12 @@ To get started, set environment variables `SUPERUSER` and `SUPERUSER_PASSWORD` a
 
 It should run at `localhost:5000` at which point you should be able to login.
 
+Developing
+----------
+
 Deployment
 ----------
-- Heroku
-- Waitress, etc.
+TODO
 
 Build Status
 ------------
@@ -38,19 +38,13 @@ TBD
 
 Statistics:
 -----------
-- Python -- 972/1024 [95%]
-- HTML -- 684/1024 [67%]
-- CSS -- 0/1024 [0%]
-- Javascript -- 0/1024 [0%]
+- Python -- 1018/1024 [99%]
+- HTML -- 1020/1024 [**100%**]
 
-TODO
-----
- - I can successfully visit URLs that don't yet exist and it doesn't give a
-   proper 404 yet...
 
 Author
 ------
-- Ryan Freckleton
+- Ryan E. Freckleton
 
 License
 -------
