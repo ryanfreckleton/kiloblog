@@ -1,3 +1,15 @@
+{% if current_user.is_authenticated %}
+{% set links = [
+    ('index', 'Home'),
+    ('new_post', 'New Post'),
+    ('logout', 'Logout'),
+] %}
+{% else %}
+{% set links = [
+    ('index', 'Home'),
+    ('login', 'Login'),
+] %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,18 +36,25 @@
                 color: white;
                 border-radius: 1ex;
             }
+
+            li.active {
+                font-weight: bold;
+                background-color: white;
+            }
         </style>
     </head>
     <body>
         <main>
             <ul class="links">
-                <li><a href="{{url_for('index')}}">Home</a></li>
-                {% if not current_user.is_authenticated %}
-                <li><a href="{{url_for('login')}}">Login</a></li>
-                {% else %}
-                <li><a href="{{url_for('new_post')}}">New Post</a></li>
-                <li><a href="{{url_for('logout')}}">Logout</a></li>
-                {% endif %}
+                {% for id, caption in links %}
+                <li {% if id == active_page %}class="active"{% endif %}>
+                    {% if id == active_page %}
+                    {{caption}}
+                    {% else %}
+                    <a href="{{url_for(id)}}">{{caption}}</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
             </ul>
             {% with messages = get_flashed_messages() %}
               {% if messages %}

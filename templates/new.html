@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% set active_page = "new_post" %}
 {% block body %}
 <form action="/new" method="POST">
     {{ form.hidden_tag() }}
