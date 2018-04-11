@@ -29,12 +29,12 @@
     <body>
         <main>
             <ul class="links">
-                <li><a href="{{url_for("index")}}">Home</a></li>
+                <li><a href="{{url_for('index')}}">Home</a></li>
                 {% if not current_user.is_authenticated %}
-                <li><a href="{{url_for("login")}}">Login</a></li>
+                <li><a href="{{url_for('login')}}">Login</a></li>
                 {% else %}
-                <li><a href="{{url_for("new_post")}}">New Post</a></li>
-                <li><a href="{{url_for("logout")}}">Logout</a></li>
+                <li><a href="{{url_for('new_post')}}">New Post</a></li>
+                <li><a href="{{url_for('logout')}}">Logout</a></li>
                 {% endif %}
             </ul>
             {% with messages = get_flashed_messages() %}
