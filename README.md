@@ -42,8 +42,8 @@ Development requirements are in `requirements-dev.txt` and tests are run with `p
 
 Statistics:
 -----------
-- Python -- 1018/1024 [99%]
-- HTML -- 1020/1024 [**100%**]
+- Python — 1018/1024 [99%]
+- HTML — 1020/1024 [**100%**]
 
 Author
 ------
@@ -51,4 +51,4 @@ Author
 
 License
 -------
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details
