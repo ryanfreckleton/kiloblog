@@ -6,13 +6,13 @@ import flask_login
 import flask_sqlalchemy
 import flask_wtf
 import wtforms
-import flask.ext.misaka
+import flask_misaka
 
 from slugify import slugify
 
 app = flask.Flask(__name__)
 app.config.from_envvar('KILOBLOG_SETTINGS')
-flask.ext.misaka.Misaka(app)
+flask_misaka.Misaka(app)
 db = flask_sqlalchemy.SQLAlchemy(app)
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
