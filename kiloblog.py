@@ -85,9 +85,9 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(pub_date=datetime.date.today())
-        post.slug = slugify(post.title)
         post.title = form.title.data
         post.content = form.content.data
+        post.slug = slugify(post.title)
         db.session.add(post)
         db.session.commit()
         return flask.redirect(flask.url_for(
@@ -120,7 +120,7 @@ def login():
         else:
             flask.flash('Bad login')
             return flask.redirect(flask.url_for('login'))
-        return flask.redirect(flask.session['next'])
+        return flask.redirect(flask.session.get('next', flask.url_for('index')))
     return flask.render_template('login.html', form=form)
 
 
