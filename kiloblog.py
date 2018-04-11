@@ -120,7 +120,7 @@ def login():
         else:
             flask.flash('Bad login')
             return flask.redirect(flask.url_for('login'))
-        return flask.redirect(flask.url_for('index'))
+        return flask.redirect(flask.session['next'])
     return flask.render_template('login.html', form=form)
 
 
