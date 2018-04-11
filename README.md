@@ -19,28 +19,31 @@ Total: 2 kilobytes
 
 Quick Start
 -----------
-To get started, set environment variables `SUPERUSER` and `SUPERUSER_PASSWORD` and run kiloblog.py with
+~~~
+$ pip install -r requirements.txt
+$ . scripts/activate
+$ metrics
+Python 1018
+HTML 1020
+$ flask run
+* Serving Flask app "kiloblog"
+* Forcing debug mode on
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+* Restarting with stat
+* Debugger is active!
+* Debugger PIN: 000-000-000
+~~~
 
-    $ ./kiloblog.py
-
-It should run at `localhost:5000` at which point you should be able to login.
+Modify setup.cfg as appropriate before deploying, **take special mind to change the password and secret key.**
 
 Developing
 ----------
-
-Deployment
-----------
-TODO
-
-Build Status
-------------
-TBD
+Development requirements are in `requirements-dev.txt` and tests are run with `py.test`
 
 Statistics:
 -----------
 - Python -- 1018/1024 [99%]
 - HTML -- 1020/1024 [**100%**]
-
 
 Author
 ------

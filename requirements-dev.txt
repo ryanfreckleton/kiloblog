@@ -1,0 +1,6 @@
+pytest==3.5.0
+hypothesis==3.55.2
+flask-pytest==0.0.5
+pytest-flask==0.10.0
+htmlmin==0.1.12
+pyminifier==2.1
