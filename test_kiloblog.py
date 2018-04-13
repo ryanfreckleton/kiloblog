@@ -1,8 +1,58 @@
+import datetime
 import pytest
 
 from hypothesis import assume, given, strategies as st
+from hypothesis.stateful import Bundle, RuleBasedStateMachine, precondition, rule
 
 import kiloblog
+
+
+class KiloblogStateMachine(RuleBasedStateMachine):
+    """
+    Describe rules for state transition of doing elaborate testing of kiloblog.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.logged_in = False
+        kiloblog.app.testing = True
+        kiloblog.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+        kiloblog.app.config['WTF_CSRF_ENABLED'] = False
+        kiloblog.db.drop_all()
+        kiloblog.db.create_all()
+        self.client = kiloblog.app.test_client()
+
+    titles = Bundle('titles')
+    contents = Bundle('contents')
+
+    @rule(target=titles, title=st.text())
+    def title(self, title):
+        return title
+
+    @rule(target=contents, content=st.text())
+    def content(self, content):
+        return content
+
+    @precondition(lambda self: self.logged_in)
+    @rule(title=titles, content=contents)
+    def create_post(self, title, content):
+        resp = self.client.post('/new', data=dict(title=title, content=content))
+        assert resp.status_code == 302
+        assert resp.headers['Location'] == 'http://localhost/{d.year}/{d.month}/{d.day}/{slug}'.format(
+                                                    d=datetime.date.today(), slug=title)
+
+    @rule()
+    def login(self):
+        self.client.post('/login', data=dict(username='admin', password='password'))
+        self.logged_in = True
+
+    @rule()
+    def logout(self):
+        self.client.get('/logout')
+        self.logged_in = False
+
+
+TestStatefully = KiloblogStateMachine.TestCase
 
 
 class TestGeneralBehavior:
