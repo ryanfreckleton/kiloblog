@@ -1,8 +1,9 @@
 import pytest
 
-from hypothesis import assume, example, given, strategies as st
+from hypothesis import assume, given, strategies as st
 
 import kiloblog
+
 
 class TestGeneralBehavior:
     """
