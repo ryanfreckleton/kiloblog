@@ -1,6 +1,8 @@
 import datetime
 import pytest
 
+from slugify import slugify
+
 from hypothesis import assume, given, strategies as st
 from hypothesis.stateful import Bundle, RuleBasedStateMachine, precondition, rule
 
@@ -25,7 +27,7 @@ class KiloblogStateMachine(RuleBasedStateMachine):
     titles = Bundle('titles')
     contents = Bundle('contents')
 
-    @rule(target=titles, title=st.text())
+    @rule(target=titles, title=st.from_regex(r'\A[a-zA-Z0-9]+[ a-zA-Z0-9.,*?!]+\Z'))
     def title(self, title):
         return title
 
@@ -39,7 +41,7 @@ class KiloblogStateMachine(RuleBasedStateMachine):
         resp = self.client.post('/new', data=dict(title=title, content=content))
         assert resp.status_code == 302
         assert resp.headers['Location'] == 'http://localhost/{d.year}/{d.month}/{d.day}/{slug}'.format(
-                                                    d=datetime.date.today(), slug=title)
+                                                    d=datetime.date.today(), slug=slugify(title))
 
     @rule()
     def login(self):
@@ -55,7 +57,7 @@ class KiloblogStateMachine(RuleBasedStateMachine):
 TestStatefully = KiloblogStateMachine.TestCase
 
 
-class TestGeneralBehavior:
+class TestGeneralBsehavior:
     """
     Test general properties of the application.
     """
