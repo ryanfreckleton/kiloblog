@@ -30,10 +30,10 @@ class Post(db.Model):
     Returns:
         New post model object.
     """
-    title = db.Column(db.String(80), primary_key=True)
+    title = db.Column(db.String(80), nullable=False)
     slug = db.Column(db.String(80), primary_key=True)
     content = db.Column(db.Text(), nullable=False)
-    pub_date = db.Column(db.Date(), nullable=False)
+    pub_date = db.Column(db.Date(), primary_key=True)
 
 
 @app.route('/<int:year>/<int:month>/<int:day>/<slug>')
